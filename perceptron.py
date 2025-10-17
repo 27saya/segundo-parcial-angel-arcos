@@ -6,7 +6,6 @@ import matplotlib.animation as animation
 import time
 import csv
 
-# CLASE 1: AGENTE PUNTO DE DATOS
 class DataPointAgent:
     """
     Agente que representa un punto de datos para entrenar el perceptrón.
@@ -36,7 +35,6 @@ class DataPointAgent:
             return 'red' if self.label == 1 else 'darkred'
         
 
-# CLASE 2: AGENTE PERCEPTRÓN
 class PerceptronAgent:
     """
     Agente que representa el perceptrón con capacidad de aprendizaje.
@@ -86,7 +84,6 @@ class PerceptronAgent:
             y_vals = (-self.w1 * x_vals - self.bias) / self.w2
             return x_vals, y_vals
         else:
-            # Línea vertical
             x_val = -self.bias / self.w1 if abs(self.w1) > 1e-10 else 0
             return [x_val, x_val], [x_range[0], x_range[1]]
     
@@ -99,7 +96,6 @@ class PerceptronAgent:
         self.training_complete = False
         self.iteration = 0
 
-# CLASE 3: MODELO PRINCIPAL
 class PerceptronModel:
     """
     Modelo que contiene el perceptrón y los puntos de datos.
@@ -115,10 +111,8 @@ class PerceptronModel:
         self.current_iteration = 0
         self.training_complete = False
         
-        # Crear el perceptrón
         self.perceptron = PerceptronAgent(learning_rate)
         
-        # Generar puntos de datos
         self.data_points = []
         self.generarPuntos()
         
@@ -132,15 +126,12 @@ class PerceptronModel:
         true_bias = 1
         
         for i in range(self.num_points):
-            # Generar punto aleatorio
             x = random.uniform(-8, 8)
             y = random.uniform(-8, 8)
-            
-            # Determinar etiqueta basada en la línea de separación real
+          
             activation = true_w1 * x + true_w2 * y + true_bias
             label = 1 if activation >= 0 else -1
             
-            # Crear agente punto de datos
             point = DataPointAgent(i, x, y, label)
             self.data_points.append(point)
     
@@ -169,15 +160,12 @@ class PerceptronModel:
         self.current_iteration = 0
         self.training_complete = False
         
-        # Reinicializar perceptrón
         self.perceptron.reset(learning_rate)
-        
-        # Regenerar puntos de datos
+       
         self.generarPuntos()
 
     def evaluarRendimiento(self):
         """Evalúa el rendimiento del perceptrón"""
-        # Actualizar clasificaciones
         for point in self.data_points:
             point.actualizarClasificacion(self.perceptron)
         
@@ -186,8 +174,6 @@ class PerceptronModel:
         
         return (correct / total) * 100 if total > 0 else 0
 
-
-# CLASE 4: VISUALIZACIÓN INTERACTIVA
 class PerceptronVisualization:
     """
     Clase para manejar la visualización interactiva del perceptrón.
@@ -209,15 +195,13 @@ class PerceptronVisualization:
         self.fig, self.ax = plt.subplots(figsize=(12, 10))
         plt.subplots_adjust(bottom=0.25, left=0.1)
         
-        # Configurar el eje principal
         self.ax.set_xlim(-10, 10)
         self.ax.set_ylim(-10, 10)
         self.ax.set_xlabel('X1')
         self.ax.set_ylabel('X2')
         self.ax.set_title('Simulación del Perceptrón - Clasificación en Tiempo Real')
         self.ax.grid(True, alpha=0.3)
-        
-        # Crear sliders
+  
         ax_learning_rate = plt.axes([0.2, 0.1, 0.3, 0.03])
         self.slider_lr = Slider(ax_learning_rate, 'Tasa de Aprendizaje', 
                                0.01, 1.0, valinit=0.1, valfmt='%.3f')
@@ -226,7 +210,6 @@ class PerceptronVisualization:
         self.slider_iter = Slider(ax_iterations, 'Max Iteraciones', 
                                  10, 500, valinit=100, valfmt='%d')
         
-        # Crear botones
         ax_start = plt.axes([0.5, 0.1, 0.1, 0.04])
         self.button_start = Button(ax_start, 'Iniciar')
         self.button_start.on_clicked(self.empezarEntreno)
@@ -244,15 +227,13 @@ class PerceptronVisualization:
         self.ax.set_ylabel('X2')
         self.ax.set_title('Simulación del Perceptrón - Clasificación en Tiempo Real')
         self.ax.grid(True, alpha=0.3)
-        
-        # Dibujar puntos de datos
+     
         for point in self.model.data_points:
             color = point.getColor()
             marker = 'o' if point.label == 1 else 's'
             self.ax.scatter(point.x, point.y, c=color, s=100, marker=marker, 
                           edgecolors='black', linewidth=1)
-        
-        # Dibujar línea de decisión
+    
         try:
             x_vals, y_vals = self.model.perceptron.lineaDecision()
             # Filtrar valores que estén en el rango visible
@@ -264,8 +245,7 @@ class PerceptronVisualization:
                            label='Línea de Decisión')
         except:
             pass
-        
-        # Actualizar información
+
         accuracy = self.model.evaluarRendimiento()
         info = f"""Iteración: {self.model.current_iteration}/{self.model.max_iterations}
 Precisión: {accuracy:.1f}%
@@ -277,7 +257,6 @@ Estado: {'Completado' if self.model.training_complete else 'Entrenando...'}"""
                     verticalalignment='top', fontsize=10,
                     bbox=dict(boxstyle='round', facecolor='wheat', alpha=0.8))
         
-        # Leyenda
         from matplotlib.lines import Line2D
         legend_elements = [
             Line2D([0], [0], marker='o', color='w', markerfacecolor='green', 
@@ -308,14 +287,11 @@ Estado: {'Completado' if self.model.training_complete else 'Entrenando...'}"""
     def empezarEntreno(self, event):
         """Inicia el entrenamiento del perceptrón"""
         if not self.is_training:
-            # Actualizar parámetros del modelo
             learning_rate = self.slider_lr.val
             max_iterations = int(self.slider_iter.val)
-            
-            # Reiniciar modelo con nuevos parámetros
+           
             self.model.reiniciarSimulacion(learning_rate, max_iterations)
-            
-            # Iniciar animación
+    
             self.is_training = True
             if self.animation_obj:
                 self.animation_obj.event_source.stop()
@@ -327,18 +303,15 @@ Estado: {'Completado' if self.model.training_complete else 'Entrenando...'}"""
 
     def reiniciarSimulacion(self, event):
         """Reinicia la simulación"""
-        # Detener animación si está corriendo
         if self.animation_obj:
             self.animation_obj.event_source.stop()
         
         self.is_training = False
-        
-        # Reiniciar modelo
+
         learning_rate = self.slider_lr.val
         max_iterations = int(self.slider_iter.val)
         self.model.reiniciarSimulacion(learning_rate, max_iterations)
-        
-        # Actualizar visualización
+
         self.actualizarPlot()
     
     def show(self):
@@ -348,18 +321,15 @@ Estado: {'Completado' if self.model.training_complete else 'Entrenando...'}"""
 def generate_test_data(num_test_points=20):
     """Genera datos de prueba para evaluar el perceptrón entrenado"""
     test_points = []
-    
-    # Usar la misma línea de separación que para los datos de entrenamiento
+
     true_w1 = 0.5
     true_w2 = -1
     true_bias = 1
     
     for i in range(num_test_points):
-        # Generar punto aleatorio
         x = random.uniform(-8, 8)
         y = random.uniform(-8, 8)
-        
-        # Determinar etiqueta basada en la línea de separación real
+
         activation = true_w1 * x + true_w2 * y + true_bias
         label = 1 if activation >= 0 else -1
         
@@ -401,3 +371,4 @@ def runearPerceptron():
 
 if __name__ == "__main__":
     viz = runearPerceptron()
+
