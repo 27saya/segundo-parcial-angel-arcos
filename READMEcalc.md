@@ -1,4 +1,4 @@
-# Calculadora basada en agentes
+# Simulación de calculadora basada en agentes
 
 ## 1. Visión general del sistema
 
