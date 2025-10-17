@@ -176,7 +176,7 @@ class IOAgent(Agent):
                 while operator_stack and operator_stack[-1] != '(':
                     self.process_operator(output_queue, operator_stack)
                 if operator_stack:
-                    operator_stack.pop()  # Eliminar '('
+                    operator_stack.pop()
         
         while operator_stack:
             self.process_operator(output_queue, operator_stack)
@@ -272,7 +272,6 @@ class AgentCalculator:
 
 
 def run_calculator():
-    """Función principal para ejecutar la calculadora"""
     calc = AgentCalculator()
     
 if __name__ == "__main__":
