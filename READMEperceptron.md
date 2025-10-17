@@ -200,3 +200,7 @@ for cada_punto in data_points:
 - **Eficiencia**: Convergencia rápida (8-24 iteraciones)
 - **Robustez**: Funcionamiento estable con diferentes parámetros
 - **Adaptabilidad**: Respuesta adecuada a cambios de configuración
+
+## 7. Correr el codigo
+
+Correr el codigo es muy sencillo, ya que solo hace falta tener python instalado en el equipo. Una vez esto hecho, se ejecuta el comando *python3.13 perceptron.py* en el Command Prompt (importante guardar el archivo en la misma carpeta que el Command Prompt esta analizando). Despues de ejecutar este comando, la interfaz gráfica se abrira, lista para probarla.
