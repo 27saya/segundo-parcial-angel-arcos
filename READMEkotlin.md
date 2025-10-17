@@ -1,6 +1,6 @@
 # Calculadora cientifica en POO - Kotlin
 
-## 1. INTRODUCCIÓN
+## 1. Intro
 
 Este proyecto implementa una **calculadora científica completa** utilizando los principios fundamentales de la programación orientada a objetos en Kotlin. La aplicación permite realizar operaciones aritméticas básicas y avanzadas (trigonometría, potencias, logaritmos, funciones exponenciales) mediante una interfaz de consola interactiva.
 
