@@ -45,8 +45,8 @@ La calculadora distribuida implementa el paradigma de agentes, donde cada operac
 
 ## 4. Mecanismo de comunicación
 
-- **Mensajes en memoria**: cada agente dispone de `send_message` y `receive_message`, aunque aquí las llamadas a métodos simulan la comunicación síncrona.
-- **Coordinación centralizada**: el agente entrada/salida invoca directamente `calculate` en cada agente.
+- **Mensajes en memoria**: cada agente dispone de `send_message` y `receive_message`, aunque aquí las llamadas a métodos simulan una comunicación sincronizada.
+- **Coordinación**: el agente entrada/salida invoca directamente `calculate` en cada agente.
 
 ---
 
