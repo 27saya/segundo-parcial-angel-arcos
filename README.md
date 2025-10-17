@@ -102,7 +102,7 @@ for cada_punto in data_points:
 
 ---
 
-## 4. ANÁLISIS DE RESULTADOS EXPERIMENTALES
+## 4. Analisis de resultados del experimento
 
 ### 4.1 Experimento 1: Tasa de aprendizaje baja (≈0.1)
 **Observaciones de la Imagen 1:**
